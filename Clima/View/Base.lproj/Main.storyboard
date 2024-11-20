@@ -40,7 +40,7 @@
                                                 <rect key="frame" x="50" y="0.0" width="262" height="40"/>
                                                 <color key="backgroundColor" systemColor="systemFillColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="go"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Cr-pd-dUW">
                                                 <rect key="frame" x="322" y="0.99999999999999645" width="40" height="38.333333333333329"/>
@@ -50,6 +50,9 @@
                                                 </constraints>
                                                 <color key="tintColor" systemColor="labelColor"/>
                                                 <state key="normal" backgroundImage="magnifyingglass" catalog="system"/>
+                                                <connections>
+                                                    <action selector="searchPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WoJ-ZE-Xan"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -119,6 +122,7 @@
                     <connections>
                         <outlet property="cityLabel" destination="CWP-r8-Jsy" id="8cQ-3l-ufV"/>
                         <outlet property="conditionImageView" destination="mYn-vV-MBC" id="gpD-FU-YB0"/>
+                        <outlet property="searchTextField" destination="2eh-wL-W34" id="xNF-vh-y5F"/>
                         <outlet property="temperatureLabel" destination="w9o-tW-03D" id="mF4-vV-JxK"/>
                     </connections>
                 </viewController>
@@ -133,7 +137,7 @@
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="sun.max" catalog="system" width="128" height="125"/>
         <namedColor name="WeatherColor">
-            <color red="0.093830741940000004" green="0.23722568150000001" blue="0.25514152649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.093999996781349182" green="0.2370000034570694" blue="0.25499999523162842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
