@@ -9,6 +9,8 @@
 import UIKit
 
 class WeatherViewController: UIViewController, UITextFieldDelegate {
+	
+	var weatherManager = WeatherManager()
 
 	// MARK: - Outlets
     @IBOutlet weak var conditionImageView: UIImageView!
@@ -24,18 +26,18 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
 
 	// MARK: - Actions
 	@IBAction func searchPressed(_ sender: UIButton) {
-		performSearch()
+		searchTextField.endEditing(true)
 	}
 	
 	// MARK: UITextFieldDelegate
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-		performSearch()
+		searchTextField.endEditing(true)
 		return true
 	}
 	
 	func textFieldDidEndEditing(_ textField: UITextField) {
-		// TODO(use searchTextField.text to get the weather for that city.)
-		searchTextField.text = ""
+		searchTextField.endEditing(true)
+		Task { await performSearch()}
 	}
 	
 	func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
@@ -48,9 +50,13 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
 	}
 	
 	// MARK: private functions
-	private final func performSearch() {
-		searchTextField.endEditing(true)
-		print(searchTextField.text!)
+	private final func performSearch() async -> Void {
+		if let cityName = searchTextField.text {
+			print(cityName)
+			let result = await weatherManager.fetchWeather(cityName: cityName)
+			print(result)
+		}
+		searchTextField.text = ""
 	}
 }
 
