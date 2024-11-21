@@ -17,7 +17,7 @@ struct WeatherModel {
 	}
 	var temperatureString: String {
 		let temperatureOneDecimal = String(format: "%.1f", temperature)
-		return "\(temperatureOneDecimal)°C"
+		return temperatureOneDecimal
 	}
 	
 	private func getConditionName(weatherId: Int) -> String{
