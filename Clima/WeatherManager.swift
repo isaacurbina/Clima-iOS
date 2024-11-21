@@ -26,7 +26,7 @@ struct WeatherManager {
 			//3. Give the session a task
 			let task = session.dataTask(with: url) { data, response, error in
 				if error != nil {
-					print(error!)
+					self.delegate?.didFailWithError(error!)
 					return
 				}
 				
@@ -51,8 +51,6 @@ struct WeatherManager {
 				let cityName = decodedData.name ?? "No city name available"
 				
 				let weatherModel = WeatherModel(conditionId: conditionId, cityName: cityName, temperature: temp)
-				print(weatherModel.conditionName)
-				print(weatherModel.temperatureString)
 				return weatherModel
 				
 			} else {
@@ -60,7 +58,7 @@ struct WeatherManager {
 				return nil
 			}
 		} catch {
-			print(error)
+			self.delegate?.didFailWithError(error)
 			return nil
 		}
 	}
