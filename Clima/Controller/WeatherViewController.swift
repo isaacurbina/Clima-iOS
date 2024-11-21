@@ -52,13 +52,16 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
 	
 	// MARK: WeatherManagerDelegate
 	func didUpdateWeather(_ weather: WeatherModel) {
-		print("didUpdateWeather\(weather)")
+		print("didUpdateWeather(\(weather))")
+	}
+	
+	func didFailWithError(_ error: Error) {
+		print("didFailWithError(\(error))")
 	}
 	
 	// MARK: private functions
 	private final func performSearch() async -> Void {
 		if let cityName = searchTextField.text {
-			print(cityName)
 			weatherManager.fetchWeather(cityName: cityName)
 		}
 		searchTextField.text = ""
