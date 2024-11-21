@@ -41,9 +41,21 @@ struct WeatherManager {
 		let decoder = JSONDecoder()
 		do {
 			let decodedData = try decoder.decode(WeatherData.self, from: weatherData)
-			print(decodedData.weather?[0]?.description!)
+			if let weather = decodedData.weather?[0] {
+				let conditionId = weather.id ?? 0
+				let temp = decodedData.main?.temp ?? 0.0
+				let cityName = decodedData.name ?? "No city name available"
+				
+				let weatherModel = WeatherModel(conditionId: conditionId, cityName: cityName, temperature: temp)
+				print(weatherModel.conditionName)
+				print(weatherModel.temperatureString)
+				
+			} else {
+				print("No weather ID available")
+			}
 		} catch {
 			print(error)
 		}
 	}
+	
 }

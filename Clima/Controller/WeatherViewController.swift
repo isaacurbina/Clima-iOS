@@ -53,8 +53,7 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
 	private final func performSearch() async -> Void {
 		if let cityName = searchTextField.text {
 			print(cityName)
-			let result = await weatherManager.fetchWeather(cityName: cityName)
-			print(result)
+			weatherManager.fetchWeather(cityName: cityName)
 		}
 		searchTextField.text = ""
 	}
