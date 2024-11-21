@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController, UITextFieldDelegate {
+class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManagerDelegate {
 	
 	var weatherManager = WeatherManager()
 
@@ -21,6 +21,7 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
 	// MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
+		weatherManager.delegate = self
 		searchTextField.delegate = self
     }
 
@@ -47,6 +48,11 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
 			textField.placeholder = "Type something..."
 			return false
 		}
+	}
+	
+	// MARK: WeatherManagerDelegate
+	func didUpdateWeather(_ weather: WeatherModel) {
+		print("didUpdateWeather\(weather)")
 	}
 	
 	// MARK: private functions
