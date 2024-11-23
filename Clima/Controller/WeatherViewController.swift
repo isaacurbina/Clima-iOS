@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManagerDelegate {
+class WeatherViewController: UIViewController {
 	
 	var weatherManager = WeatherManager()
 
@@ -29,8 +29,11 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
 	@IBAction func searchPressed(_ sender: UIButton) {
 		searchTextField.endEditing(true)
 	}
+}
+
+// MARK: - UITextFieldDelegate
+extension WeatherViewController: UITextFieldDelegate {
 	
-	// MARK: UITextFieldDelegate
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		searchTextField.endEditing(true)
 		return true
@@ -50,7 +53,18 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
 		}
 	}
 	
-	// MARK: WeatherManagerDelegate
+	// MARK: private functions
+	private final func performSearch() async -> Void {
+		if let cityName = searchTextField.text {
+			weatherManager.fetchWeather(cityName: cityName)
+		}
+		searchTextField.text = ""
+	}
+}
+
+// MARK: - WeatherManagerDelegate
+extension WeatherViewController: WeatherManagerDelegate {
+	
 	func didUpdateWeather(_ weather: WeatherModel) {
 		DispatchQueue.main.async {
 			self.temperatureLabel.text = weather.temperatureString
@@ -61,15 +75,4 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
 	func didFailWithError(_ error: Error) {
 		print("didFailWithError(\(error))")
 	}
-	
-	// MARK: private functions
-	private final func performSearch() async -> Void {
-		if let cityName = searchTextField.text {
-			weatherManager.fetchWeather(cityName: cityName)
-		}
-		searchTextField.text = ""
-	}
 }
-
-
-
